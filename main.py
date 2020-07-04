@@ -4,6 +4,7 @@ import torch
 from models import ReviewModel
 import gc
 from utils import load_weights, predict_text, predict_probs
+from requests import TextClassificationRequest
 
 app = FastAPI()
 # model = load_model()
@@ -23,3 +24,13 @@ def get_predictions(text: str):
     prob = round(prob, 3)
     print("Collected Memory after prediction :", gc.collect())
     return {'review' : text, 'prediction' : label, 'probability' : prob}
+
+@app.post('/postpredict')
+def post_predictions(req: TextClassificationRequest):
+    model = load_model()
+    print("Collected Memory before prediction :", gc.collect())
+    model.eval()
+    label, prob = predict_text(model, req.text, req.threshold)
+    prob = round(prob, 3)
+    print("Collected Memory after prediction :", gc.collect())
+    return {'review' : req.text, 'prediction' : label, 'probability' : prob}
