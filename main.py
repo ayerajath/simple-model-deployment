@@ -14,15 +14,12 @@ def load_model():
     model = load_weights(model)
     return model
 
-@app.get('/')
-def get_root():
-    return {'Hello' : 'World'}
-
 @app.get('/predict/{text}')
 def get_predictions(text: str):
     model = load_model()
-    print("Collected Memorybefore prediction :", gc.collect())
+    print("Collected Memory before prediction :", gc.collect())
     model.eval()
-    label = predict_text(model, text, 0.5)
+    label, prob = predict_text(model, text, 0.5)
+    prob = round(prob, 3)
     print("Collected Memory after prediction :", gc.collect())
-    return {'review' : text, 'predictions' : label} 
+    return {'review' : text, 'prediction' : label, 'probability' : prob}

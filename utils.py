@@ -39,11 +39,11 @@ def predict_text(model, text, threshold):
     prediction = predict_probs(model, ids, masks)
     print("Probability (before sigmoid) :", prediction)
     sigmoid = nn.Sigmoid()
-    prediction = sigmoid(prediction)
-    print("Probability (after sigmoid) :", prediction)
-    if prediction >= threshold:
-        return "Positive"
-    return "Negative"
+    prediction_prob = sigmoid(prediction)
+    print("Probability (after sigmoid) :", prediction_prob)
+    if prediction_prob >= threshold:
+        return "Positive", prediction_prob.item()
+    return "Negative", prediction_prob.item()
 
 def predict_probs(model, ids, masks):
     predictions = model(ids, masks)
