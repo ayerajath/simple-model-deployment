@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# not adding the weights
+weights/roberta_base.pth
+
+# not pushing the weird vscode stuff
+.vscode
