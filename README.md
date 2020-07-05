@@ -7,7 +7,7 @@ The project makes use of PyTorch while training/inference of the model and FastA
 
 # Examples
 ## Get Request
-![Get Request]('/screenshots/get_request_example.PNG')
+![Get Request](/screenshots/get_request_example.PNG)
 
 ## Post Request
-![Post Request]('/screenshots/post_request_example.jpg')
+![Post Request](/screenshots/post_request_example.jpg)
