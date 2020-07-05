@@ -34,3 +34,8 @@ def post_predictions(req: TextClassificationRequest):
     prob = round(prob, 3)
     print("Collected Memory after prediction :", gc.collect())
     return {'review' : req.text, 'prediction' : label, 'probability' : prob}
+
+
+# Some reviews
+# It's watchable and intriguing stuff, yet also silly and inconsistent. - Positive
+# It's just not special enough. - Negative
