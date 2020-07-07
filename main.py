@@ -15,11 +15,12 @@ def load_model():
     model = load_weights(model)
     return model
 
+model = load_model()
+model.eval()
+
 @app.get('/predict/{text}')
 def get_predictions(text: str):
-    model = load_model()
     print("Collected Memory before prediction :", gc.collect())
-    model.eval()
     label, prob = predict_text(model, text, 0.5)
     prob = round(prob, 3)
     print("Collected Memory after prediction :", gc.collect())
@@ -27,9 +28,7 @@ def get_predictions(text: str):
 
 @app.post('/postpredict')
 def post_predictions(req: TextClassificationRequest):
-    model = load_model()
     print("Collected Memory before prediction :", gc.collect())
-    model.eval()
     label, prob = predict_text(model, req.text, req.threshold)
     prob = round(prob, 3)
     print("Collected Memory after prediction :", gc.collect())
